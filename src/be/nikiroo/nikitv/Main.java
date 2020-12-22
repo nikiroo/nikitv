@@ -50,7 +50,7 @@ public class Main {
 					config, ""))) {
 				sources.add(source);
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			System.err.println("Cannot load config file: " + configFile);
 			if (generateDefaultIf404 && !configFile.exists()) {
 				System.err.println("Generating default config file...");
