@@ -17,6 +17,11 @@ public class Video {
 
 	static public void xembed(final JFrame pane, String link)
 			throws IOException {
+
+		if (link.startsWith("file:") && !link.startsWith("file://")) {
+			link = link.replaceAll("^file:", "file://");
+		}
+
 		final String title = pane.getTitle();
 		String titleEmbed = "xembed_" + Math.random();
 		pane.setTitle(titleEmbed);
