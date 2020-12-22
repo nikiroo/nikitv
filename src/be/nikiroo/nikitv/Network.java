@@ -67,22 +67,25 @@ public class Network {
 					// Name is also at end of line, in case not in
 					// the meta
 					String tab[] = meta.split(",");
-					String defname = tab[tab.length - 1];
+					String defname = tab.length > 1 ? tab[tab.length - 1] : "";
 
 					// Look into the metadata
 					String name = getValue(meta, "tvg-name");
 					String logo = getValue(meta, "tvg-logo");
 
-					if (name.isEmpty()) {
+					if (logo == null)
+						logo = "";
+
+					if (name == null) {
 						name = defname;
-					}
-					if (name.isEmpty()) {
-						name = line.substring(line.indexOf('/') + 1);
-						for (String ext : new String[] { ".m3u", ".m3u8",
-								".mpeg", ".mpg", ".mp4" })
-							if (name.endsWith(ext))
-								name = name.substring(0,
-										name.length() - ext.length());
+						if (name.isEmpty()) {
+							name = line.substring(line.indexOf('/') + 1);
+							for (String ext : new String[] { ".m3u", ".m3u8",
+									".mpeg", ".mpg", ".mp4" })
+								if (name.endsWith(ext))
+									name = name.substring(0, name.length()
+											- ext.length());
+						}
 					}
 
 					name = name.replaceAll(" *:", ":");
@@ -142,6 +145,6 @@ public class Network {
 			}
 		}
 
-		return "";
+		return null;
 	}
 }
