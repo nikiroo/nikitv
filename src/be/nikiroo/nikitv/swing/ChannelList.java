@@ -91,11 +91,11 @@ public class ChannelList extends ListenerPanel {
 		list.setFixedCellHeight((int) sz.getHeight());
 		list.setFixedCellWidth((int) sz.getWidth());
 
-		SearchBar search = new SearchBar();
+		final SearchBar search = new SearchBar();
 		search.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String filter = search.getText().toLowerCase();
+				final String filter = search.getText().toLowerCase();
 				data.filter(new Predicate<ChannelData>() {
 					@Override
 					public boolean test(ChannelData item) {

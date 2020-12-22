@@ -50,7 +50,7 @@ public class MainFrame extends JFrame {
 	// 0 = no, 1 = yes, 2 = yes + fullsize
 	private int fs;
 
-	public MainFrame(List<ChannelData> sources, Network net) {
+	public MainFrame(final List<ChannelData> sources, final Network net) {
 		setTitle("Niki TV");
 		setIcon();
 		setLayout(new BorderLayout());
@@ -136,7 +136,7 @@ public class MainFrame extends JFrame {
 		buttons.setLayout(new BoxLayout(buttons, BoxLayout.LINE_AXIS));
 		add(buttons, BorderLayout.SOUTH);
 
-		for (ChannelData source : sources) {
+		for (final ChannelData source : sources) {
 			final JButton button = new JButton(new AbstractAction(
 					source.getName()) {
 				private static final long serialVersionUID = 1L;
@@ -224,7 +224,7 @@ public class MainFrame extends JFrame {
 				break;
 			}
 
-			revalidate();
+			invalidate();
 			repaint();
 		}
 	}
@@ -286,8 +286,8 @@ public class MainFrame extends JFrame {
 		return split;
 	}
 
-	private ChannelList initList(Network net) {
-		ChannelList list = new ChannelList(net);
+	private ChannelList initList(final Network net) {
+		final ChannelList list = new ChannelList(net);
 		list.addActionListener(new ActionListener() {
 
 			@Override
@@ -307,7 +307,7 @@ public class MainFrame extends JFrame {
 	}
 
 	// NULL country = local channels
-	private void fillChannels(Network net, ChannelData source) {
+	private void fillChannels(final Network net, final ChannelData source) {
 		new SwingWorker<Void, Void>() {
 			@Override
 			protected Void doInBackground() throws Exception {
@@ -317,7 +317,7 @@ public class MainFrame extends JFrame {
 			}
 
 			protected void done() {
-				MainFrame.this.revalidate();
+				MainFrame.this.invalidate();
 				MainFrame.this.repaint();
 			}
 		}.execute();
