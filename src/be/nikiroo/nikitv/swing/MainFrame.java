@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GraphicsEnvironment;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,6 +35,7 @@ import be.nikiroo.utils.IOUtils;
 import be.nikiroo.utils.Image;
 import be.nikiroo.utils.ui.ImageUtilsAwt;
 import be.nikiroo.utils.ui.ImageUtilsAwt.Rotation;
+import be.nikiroo.utils.ui.UIUtils;
 
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -193,14 +193,6 @@ public class MainFrame extends JFrame {
 			switch (fs) {
 			case 2:
 			case 1:
-				if (fs == 2) {
-					GraphicsEnvironment.getLocalGraphicsEnvironment()
-							.getDefaultScreenDevice().setFullScreenWindow(this);
-				} else {
-					GraphicsEnvironment.getLocalGraphicsEnvironment()
-							.getDefaultScreenDevice().setFullScreenWindow(null);
-				}
-
 				splitDividerSize = split.getDividerSize();
 				split.setDividerSize(0);
 				split.setDividerLocation(1);
@@ -211,9 +203,6 @@ public class MainFrame extends JFrame {
 				break;
 
 			case 0:
-				GraphicsEnvironment.getLocalGraphicsEnvironment()
-						.getDefaultScreenDevice().setFullScreenWindow(null);
-
 				setExtendedState(JFrame.NORMAL);
 				split.setDividerSize(splitDividerSize);
 				split.setDividerLocation(0.20);
@@ -223,6 +212,8 @@ public class MainFrame extends JFrame {
 				add(topPanel, BorderLayout.NORTH);
 				break;
 			}
+
+			UIUtils.setFullscreenWindow(fs == 2 ? this : null);
 
 			invalidate();
 			repaint();

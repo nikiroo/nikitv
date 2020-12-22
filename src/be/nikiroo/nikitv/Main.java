@@ -33,7 +33,7 @@ public class Main {
 				new CacheMemory());
 
 		UIUtils.setLookAndFeel();
-		
+
 		Network net = new Network(downloader, downloaderLogo);
 		MainFrame main = new MainFrame(getSources(net, true), net);
 
