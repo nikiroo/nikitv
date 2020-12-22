@@ -216,6 +216,7 @@ public class MainFrame extends JFrame {
 			UIUtils.setFullscreenWindow(fs == 2 ? this : null);
 
 			invalidate();
+			validate();
 			repaint();
 		}
 	}
@@ -309,6 +310,7 @@ public class MainFrame extends JFrame {
 
 			protected void done() {
 				MainFrame.this.invalidate();
+				MainFrame.this.validate();
 				MainFrame.this.repaint();
 			}
 		}.execute();

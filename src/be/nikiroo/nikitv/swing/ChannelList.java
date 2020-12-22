@@ -148,6 +148,7 @@ public class ChannelList extends ListenerPanel {
 			@Override
 			protected void done() {
 				ChannelList.this.invalidate();
+				ChannelList.this.validate();
 				ChannelList.this.repaint();
 			}
 		}.execute();
