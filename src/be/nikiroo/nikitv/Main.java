@@ -12,6 +12,7 @@ import be.nikiroo.utils.Cache;
 import be.nikiroo.utils.CacheMemory;
 import be.nikiroo.utils.Downloader;
 import be.nikiroo.utils.IOUtils;
+import be.nikiroo.utils.ui.UIUtils;
 
 public class Main {
 	public static void main(String[] args) {
@@ -31,6 +32,8 @@ public class Main {
 				"Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0",
 				new CacheMemory());
 
+		UIUtils.setLookAndFeel();
+		
 		Network net = new Network(downloader, downloaderLogo);
 		MainFrame main = new MainFrame(getSources(net, true), net);
 
@@ -63,6 +66,7 @@ public class Main {
 				;
 
 				try {
+					dir.mkdirs();
 					IOUtils.writeSmallFile(configFile, content.toString());
 					return getSources(net, false);
 				} catch (IOException e2) {
