@@ -45,7 +45,8 @@ public class Main {
 		List<ChannelData> sources = new ArrayList<ChannelData>();
 
 		File dir = IOUtils.getRunningDirectory(Main.class, true);
-		File configFile = new File(dir, "lists/nikitv.m3u");
+		dir = new File(dir, "lists");
+		File configFile = new File(dir, "nikitv.m3u");
 
 		try {
 			String config = configFile.toURI().toURL().toExternalForm();
@@ -59,9 +60,9 @@ public class Main {
 				System.err.println("Generating default config file...");
 				StringBuilder content = new StringBuilder();
 				content.append("#EXTM3U\n")
-						.append("#EXTINF: tvg-logo=\"../images/flags/be.png\",Belgique\n") //
+						.append("#EXTINF: tvg-logo=\"flags/be.png\",Belgique\n") //
 						.append("https://iptv-org.github.io/iptv/countries/be.m3u\n") //
-						.append("#EXTINF: tvg-logo=\"../images/flags/fr.png\",France\n") //
+						.append("#EXTINF: tvg-logo=\"flags/fr.png\",France\n") //
 						.append("https://iptv-org.github.io/iptv/countries/fr.m3u\n") //
 				;
 
