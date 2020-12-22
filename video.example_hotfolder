@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Will trigger a hot folder to launch xvid
+# Parameters:
+# - titleEmbed
+# - classEmbed
+# - link
+
+quote() {
+	printf " %q" "$@" | cut -c2-
+}
+
+titleEmbed=$(quote "$1")
+class=$(quote "$2")
+link=$(quote "$3")
+
+echo "xvid $titleEmbed $class $link" > /tmp/shared/hotfolder/local/xvid.$$.local

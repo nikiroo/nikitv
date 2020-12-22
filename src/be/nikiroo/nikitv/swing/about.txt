@@ -1,0 +1,28 @@
+				About page
+				=======
+
+Default lists:
+	https://github.com/iptv-org/iptv
+
+Flags:
+	Flag icons are made by www.IconDrawer.com
+	If you wish to use them on website, you have to place link 
+	to www.icondrawer.com on your site. 
+	(Somewhere on static page, not in blog or news page)
+	If you can not or do not want to place link back, 
+	you can purchase royalty-free license. 
+
+TV-Set-Retro-icon:
+	Artist: Icons-Land (Available for custom work)
+	Iconset: Vista Hardware Devices Icons (28 icons)
+	License: Free for non-commercial use.
+	Commercial usage: Not allowed
+	Readme file: IconsLandDemoLicenseAgreement.txt
+	site: http://www.icons-land.com
+
+Fullscreen-icon:
+	Artist: Sekkyumu
+	Iconset: Developpers Icons (105 icons)
+	License: Freeware
+	Commercial usage: Allowed
+	site: http://www.icons-land.com

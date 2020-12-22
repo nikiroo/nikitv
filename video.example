@@ -1,0 +1,41 @@
+#!/bin/sh
+
+# This script requires: 
+# - mpv
+# - xwininfo
+
+# $0 name-of-frame name-of-embed-root-class URL_or_FILE
+# (frame of class embed-root-class must contain an AWT heavy weight 
+# component -- last one will be taken)
+#!/bin/sh
+
+# $0 name-of-frame name-of-embed-root-class URL_or_FILE
+# (frame of class embed-root-class must contain an AWT heavy weight 
+# component -- last one will be taken)
+
+NAME="$1"
+CLASS="$2"
+LINK="$3"
+
+# Get windowid of target XEMBED
+wid=`xwininfo -name "$NAME" -tree | grep "\"$CLASS\"" | tail -n 1 | cut -f1 -d'"'`
+wid=`echo $wid`
+
+if [ "$wid" = "" ]; then
+	echo No window found >&2
+	exit 1
+fi
+
+# Check if already running an embed in it
+prev=`xwininfo -id $wid -tree | grep '"mpv"'`
+if [ "$prev" != "" ]; then
+	prev=`echo "$prev" | cut -f1 -d'('`
+	prev=`echo $prev`
+	prev=`xwininfo -wm -id $prev | grep "Process id" | cut -f2 -d:`
+	prev=`echo $prev`
+	echo Previous instance found, killing it...
+	kill $prev
+fi
+
+# Start a new instance in it
+mpv --force-window=immediate --wid=$wid "$LINK" &

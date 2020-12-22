@@ -1,0 +1,13 @@
+TV-Set-Retro-icon:
+	Artist: Icons-Land (Available for custom work)
+	Iconset: Vista Hardware Devices Icons (28 icons)
+	License: Free for non-commercial use.
+	Commercial usage: Not allowed
+	Readme file: IconsLandDemoLicenseAgreement.txt
+
+Fullscreen-icon:
+	Artist: Sekkyumu
+	Iconset: Developpers Icons (105 icons)
+	License: Freeware
+	Commercial usage: Allowed
+
