@@ -18,6 +18,22 @@ import be.nikiroo.utils.Downloader;
 import be.nikiroo.utils.IOUtils;
 import be.nikiroo.utils.ui.ImageUtilsAwt;
 
+/**
+ * Support for m3u files.
+ * <p>
+ * We only consider the latest previous '#' line before the link as meta-data.
+ * We consider the following meta-data:
+ * <ul>
+ * <li>tvg-name: the name of the channel (if not found, will take anything after
+ * the first comma (',')</li>
+ * <li>tvg-logo: a link to the logo of this channel</li>
+ * <li>tvg-name: the channel name</li>
+ * <li>group-title: a group name, that will group the channels</li>
+ * <li>is-group: if set to "yes", will be considered as a group to another list
+ * file</li>
+ * 
+ * @author niki
+ */
 public class Network {
 	private Downloader downloader;
 	private Downloader downloaderLogo;

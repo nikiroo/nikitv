@@ -59,9 +59,9 @@ public class Main {
 				System.err.println("Generating default config file...");
 				StringBuilder content = new StringBuilder();
 				content.append("#EXTM3U\n")
-						.append("#EXTINF: tvg-logo=\"flags/be.png\",Belgique\n") //
+						.append("#EXTINF: is-group=\"yes\" tvg-logo=\"flags/be.png\",Belgique\n") //
 						.append("https://iptv-org.github.io/iptv/countries/be.m3u\n") //
-						.append("#EXTINF: tvg-logo=\"flags/fr.png\",France\n") //
+						.append("#EXTINF: is-group=\"yes\" tvg-logo=\"flags/fr.png\",France\n") //
 						.append("https://iptv-org.github.io/iptv/countries/fr.m3u\n") //
 				;
 
