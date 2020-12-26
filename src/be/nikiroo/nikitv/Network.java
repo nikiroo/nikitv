@@ -8,7 +8,9 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 
@@ -54,11 +56,18 @@ public class Network {
 
 	public List<ChannelData> getChannels(ChannelData chanData)
 			throws IOException {
-		return getChannels(chanData.getUrl());
+		List<ChannelData> subs = chanData.getChanDatas();
+		if (subs == null) {
+			subs = getChannels(chanData.getUrl());
+			chanData.setChanDatas(subs);
+		}
+
+		return subs;
 	}
 
-	private List<ChannelData> getChannels(URL m3u) throws IOException {
+	public List<ChannelData> getChannels(URL m3u) throws IOException {
 		List<ChannelData> channels = new ArrayList<ChannelData>();
+		Map<String, List<ChannelData>> groups = new HashMap<String, List<ChannelData>>();
 		InputStreamReader isr = new InputStreamReader(downloader.open(m3u));
 		try {
 			BufferedReader reader = new BufferedReader(isr);
@@ -126,7 +135,14 @@ public class Network {
 					ChannelData chan;
 					try {
 						chan = new ChannelData(name, line, logo, group, isGroup);
-						channels.add(chan);
+						if (group == null || group.isEmpty()) {
+							channels.add(chan);
+						} else {
+							if (!groups.containsKey(group)) {
+								groups.put(group, new ArrayList<ChannelData>());
+							}
+							groups.get(group).add(chan);
+						}
 					} catch (MalformedURLException e) {
 						e.printStackTrace();
 					}
@@ -136,6 +152,13 @@ public class Network {
 			}
 		} finally {
 			isr.close();
+		}
+
+		for (String groupName : groups.keySet()) {
+			ChannelData subs = new ChannelData(groupName, null, null, null,
+					true);
+			subs.setChanDatas(groups.get(groupName));
+			channels.add(subs);
 		}
 
 		return channels;

@@ -2,6 +2,7 @@ package be.nikiroo.nikitv;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 public class ChannelData {
 	private String name;
@@ -9,11 +10,13 @@ public class ChannelData {
 	private String logo;
 	private String group;
 	private boolean groupMode;
+	private List<ChannelData> chanDatas;
 
+	// no URL only allowed for groups
 	public ChannelData(String name, String url, String logo, String group,
 			boolean groupMode) throws MalformedURLException {
 		this.name = name == null ? "" : name;
-		this.url = new URL(url);
+		this.url = (url == null && groupMode) ? null : new URL(url);
 		this.logo = logo == null ? "" : logo;
 		this.group = group == null ? "" : group;
 		this.groupMode = groupMode;
@@ -41,6 +44,18 @@ public class ChannelData {
 
 	public boolean isGroupMode() {
 		return groupMode;
+	}
+
+	// only for groupMode, can be NULL
+	public List<ChannelData> getChanDatas() {
+		if (!groupMode)
+			return null;
+
+		return chanDatas;
+	}
+
+	void setChanDatas(List<ChannelData> chanDatas) {
+		this.chanDatas = chanDatas;
 	}
 
 	/**

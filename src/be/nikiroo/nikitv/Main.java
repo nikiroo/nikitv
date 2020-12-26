@@ -49,9 +49,8 @@ public class Main {
 		File configFile = new File(dir, "nikitv.m3u");
 
 		try {
-			String config = configFile.toURI().toURL().toExternalForm();
-			for (ChannelData source : net.getChannels(new ChannelData("",
-					config, "", "", true))) {
+			for (ChannelData source : net.getChannels(configFile.toURI()
+					.toURL())) {
 				sources.add(source);
 			}
 		} catch (Exception e) {
