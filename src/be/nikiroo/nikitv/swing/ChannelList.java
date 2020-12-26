@@ -74,16 +74,11 @@ public class ChannelList extends ListenerPanel {
 		list.setVisibleRowCount(0);
 		list.setLayoutOrientation(JList6.HORIZONTAL_WRAP);
 
-		StringBuilder longString = new StringBuilder();
-		for (int i = 0; i < 20; i++) {
-			longString
-					.append("Some long string, which is 50 chars long itself...");
-		}
-
 		Dimension sz = null;
 		try {
-			sz = new Channel(new ChannelData(longString.toString(),
-					"http://example.com/", "")).getPreferredSize();
+			sz = new Channel(new ChannelData(
+					"Some long string, which is 50 chars long itself...",
+					"http://example.com/", "", "", false)).getPreferredSize();
 		} catch (MalformedURLException e) {
 			// will not happen
 		}

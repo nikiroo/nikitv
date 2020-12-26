@@ -51,7 +51,7 @@ public class Main {
 		try {
 			String config = configFile.toURI().toURL().toExternalForm();
 			for (ChannelData source : net.getChannels(new ChannelData("",
-					config, ""))) {
+					config, "", "", true))) {
 				sources.add(source);
 			}
 		} catch (Exception e) {

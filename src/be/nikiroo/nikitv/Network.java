@@ -1,6 +1,6 @@
 package be.nikiroo.nikitv;
 
-import java.awt.Image;
+import java.awt.Dimension;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 
 import be.nikiroo.utils.Downloader;
 import be.nikiroo.utils.IOUtils;
+import be.nikiroo.utils.ui.ImageUtilsAwt;
 
 public class Network {
 	private Downloader downloader;
@@ -24,7 +25,7 @@ public class Network {
 		this.downloaderLogo = downloaderLogo;
 	}
 
-	public Image fetchLogo(ChannelData chanData, int width, int height)
+	public ImageIcon fetchLogo(ChannelData chanData, int width, int height)
 			throws IOException {
 		if (chanData.getLogo().isEmpty())
 			return null;
@@ -34,10 +35,18 @@ public class Network {
 		try {
 			byte[] data = IOUtils.toByteArray(in);
 			ImageIcon logoOrig = new ImageIcon(data);
+
+			Dimension target = new Dimension(width, height);
+			Dimension sz = new Dimension(logoOrig.getIconWidth(),
+					logoOrig.getIconHeight());
+			sz = ImageUtilsAwt.scaleSize(sz, target, 1, false);
+			if (sz.width > target.width)
+				sz = ImageUtilsAwt.scaleSize(sz, target, 1, true);
+
 			ImageIcon logo = new ImageIcon(logoOrig.getImage()
-					.getScaledInstance(width, height,
+					.getScaledInstance(sz.width, sz.height,
 							java.awt.Image.SCALE_SMOOTH));
-			return logo.getImage();
+			return logo;
 		} finally {
 			in.close();
 		}
@@ -73,6 +82,8 @@ public class Network {
 					// Look into the metadata
 					String name = getValue(meta, "tvg-name");
 					String logo = getValue(meta, "tvg-logo");
+					String group = getValue(meta, "group-title");
+					boolean isGroup = "yes".equals(getValue(meta, "is-group"));
 
 					if (name.isEmpty()) {
 						name = defname;
@@ -114,7 +125,7 @@ public class Network {
 
 					ChannelData chan;
 					try {
-						chan = new ChannelData(name, line, logo);
+						chan = new ChannelData(name, line, logo, group, isGroup);
 						channels.add(chan);
 					} catch (MalformedURLException e) {
 						e.printStackTrace();

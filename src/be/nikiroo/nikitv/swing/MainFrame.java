@@ -150,10 +150,7 @@ public class MainFrame extends JFrame {
 			new SwingWorker<ImageIcon, Void>() {
 				@Override
 				protected ImageIcon doInBackground() throws Exception {
-					java.awt.Image img = net.fetchLogo(source, 24, 24);
-					if (img != null)
-						return new ImageIcon(img);
-					return null;
+					return net.fetchLogo(source, 24, 24);
 				}
 
 				protected void done() {
@@ -284,21 +281,26 @@ public class MainFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				ChannelData chanData = list.getSelected();
-				try {
-					Video.xembed(MainFrame.this, chanData.getUrl()
-							.toExternalForm());
-					selected.setText(chanData.getName());
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				actionChannel(net, list.getSelected());
 			}
 		});
 
 		return list;
 	}
 
-	// NULL country = local channels
+	private void actionChannel(final Network net, final ChannelData chanData) {
+		if (chanData.isGroupMode()) {
+			fillChannels(net, chanData);
+		} else {
+			try {
+				Video.xembed(this, chanData.getUrl().toExternalForm());
+				selected.setText(chanData.getName());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	private void fillChannels(final Network net, final ChannelData source) {
 		new SwingWorker<Void, Void>() {
 			@Override
